@@ -1,5 +1,4 @@
 require 'bindata'
-require 'hex_string'
 
 module BinaryService
   # Constants
@@ -22,7 +21,7 @@ module BinaryService
   COLOR_MODEL_GRAY        = "GRAY"
   COLOR_MODEL_DEFAULT     = COLOR_MODEL_RGB
 
-  def build_binary_palette(
+  def self.build_binary_palette(
     colors,
     groups,
     version_major = DEFAULT_VERSION_MAJOR,
@@ -58,7 +57,7 @@ module BinaryService
 
   private
 
-  def binary_add_color(palette, name, model, type, data)
+  def self.binary_add_color(palette, name, model, type, data)
     case model
     when :rgb
       color_model = COLOR_MODEL_RGB
@@ -114,7 +113,7 @@ module BinaryService
     })
   end
 
-  def binary_begin_group(palette, name)
+  def self.binary_begin_group(palette, name)
     palette.blocks.push({
       block_type: BLOCK_TYPE_GROUP_START,
       block_data: {
@@ -123,7 +122,7 @@ module BinaryService
     })
   end
 
-  def binary_end_group(palette)
+  def self.binary_end_group(palette)
     palette.blocks.push({
       block_type: BLOCK_TYPE_GROUP_END,
     })

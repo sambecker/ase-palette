@@ -1,10 +1,10 @@
-include BinaryService
-include HexString
+require "hex_string"
+require 'ase_palette/binary_service'
 
-module ASEBuilder
+module ASEPalette
   DEFAULT_COLOR_TYPE = :global
 
-  class Palette
+  class Palette    
     # Constructor
 
     def initialize
@@ -98,7 +98,7 @@ module ASEBuilder
     def remove_color(name)
       @colors = @colors.select { |color| color[:name] != name }
       @groups.each do |group|
-        group.colors = group.colors.select { |color| color[:name] != name }
+        group[:colors] = group[:colors].select { |color| color[:name] != name }
       end
     end
 
