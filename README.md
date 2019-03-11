@@ -24,7 +24,7 @@ Or install it yourself as:
 
 ```ruby
 # Create palette
-palette = ASEPalette::Palette.new
+palette = ASEPalette.new
 
 # Add colors
 palatte.add_rgb_color  'RGB Color Name', 255, 0, 0
@@ -37,7 +37,7 @@ palatte.add_gray_color 'GRAY Color Name', 50
 
 ```ruby
 # Create palette
-palette = ASEPalette::Palette.new
+palette = ASEPalette.new
 
 # Create group
 palette.create_group 'Group Name'
