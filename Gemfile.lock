@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ase-builder (0.1.0)
+    ase-palette (0.1.0)
       bindata (~> 2.4.4)
       hex_string (~> 1.0.1)
 
@@ -30,7 +30,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  ase-builder!
+  ase-palette!
   bundler (~> 2.0)
   rake (~> 11.2)
   rspec (~> 3.8)

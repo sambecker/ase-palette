@@ -1,13 +1,13 @@
-# ASEBuilder
+# ASEPalette
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ase_builder`. To experiment with that code, run `bin/console` for an interactive prompt.
+Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ase_palette`. To experiment with that code, run `bin/console` for an interactive prompt.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'ase-builder'
+gem 'ase-palette'
 ```
 
 And then execute:
@@ -16,40 +16,40 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install ase-builder
+    $ gem install ase-palette
 
 ## Usage
 
-### Individual colors
+### Add individual colors
 
 ```ruby
 # Create palette
-palette = ASEBuilder::Palette.new
+palette = ASEPalette::Palette.new
 
 # Add colors
-palatte.add_rgb_color('RGB Color Name', 255, 0, 0)
-palatte.add_cmyk_color('CMYK Color Name', 0, 100, 100, 0)
-palatte.add_lab_color('LAB Color Name', 54, 81, 70)
-palatte.add_gray_color('GRAY Color Name', 50)
+palatte.add_rgb_color  'RGB Color Name', 255, 0, 0
+palatte.add_cmyk_color 'CMYK Color Name', 0, 100, 100, 0
+palatte.add_lab_color  'LAB Color Name', 54, 81, 70
+palatte.add_gray_color 'GRAY Color Name', 50
 ```
 
-### Grouped colors
+### Add grouped colors
 
 ```ruby
 # Create palette
-palette = ASEBuilder::Palette.new
+palette = ASEPalette::Palette.new
 
 # Create group
-palette.create_group('Group Name')
+palette.create_group 'Group Name'
 
 # Add colors
-palette.add_rgb_color_to_group('Group Name', 'RGB Color Name', 0, 100, 100, 0)
-palette.add_cmyk_color_to_group('Group Name', 'CMYK Color Name', 0, 100, 100, 0)
-palette.add_lab_color_to_group('Group Name', 'LAB Color Name', 54, 81, 70)
-palette.add_gray_color_to_group('Group Name', 'GRAY Color Name', 50)
+palette.add_rgb_color_to_group  'Group Name', 'RGB Color Name', 0, 100, 100, 0
+palette.add_cmyk_color_to_group 'Group Name', 'CMYK Color Name', 0, 100, 100, 0
+palette.add_lab_color_to_group  'Group Name', 'LAB Color Name', 54, 81, 70
+palette.add_gray_color_to_group 'Group Name', 'GRAY Color Name', 50
 ```
 
-### Output
+### Export palette
 
 ```ruby
 # Store file
@@ -71,7 +71,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/sambecker/ase-builder.
+Bug reports and pull requests are welcome on GitHub at https://github.com/sambecker/ase-palette.
 
 ## License
 

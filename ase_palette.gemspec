@@ -1,23 +1,23 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "ase_builder/version"
+require "ase_palette/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "ase-builder"
-  spec.version       = ASEBuilder::VERSION
+  spec.name          = "ase-palette"
+  spec.version       = ASEPalette::VERSION
   spec.authors       = ["Sam Becker"]
   spec.email         = ["sam@sambecker.com"]
 
   spec.summary       = %q{Create and manage Adobe ASE palettes.}
   spec.description   = %q{Read and write Adobe Swatch Exchange files.}
-  spec.homepage      = "https://github.com/sambecker/ase-builder"
+  spec.homepage      = "https://github.com/sambecker/ase-palette"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
-    spec.metadata["allowed_push_host"] = "https://rubygems.org/gems/ase-builder"
+    spec.metadata["allowed_push_host"] = "https://rubygems.org/gems/ase-palette"
 
     spec.metadata["homepage_uri"] = spec.homepage
     spec.metadata["source_code_uri"] = spec.homepage

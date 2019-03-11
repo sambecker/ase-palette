@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "ase_builder"
+require "ase_palette"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

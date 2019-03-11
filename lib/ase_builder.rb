@@ -1,6 +1,6 @@
-require "ase_builder/version"
+require "ase_palette/version"
 
-module ASEBuilder
+module ASEPalette
   class Error < StandardError; end
   # Your code goes here...
 end
