@@ -72,19 +72,19 @@ palette = ASEPalette.open('path/to/file.ase')
 puts palette
 # ASEPalette 2.11
 # ---------------
-# RGB Colors:
-#   Violet RGB, RGB: 50/100/255, :global
-#   Blue RGB, RGB: 0/0/255, :global
-#   Green RGB, RGB: 50/255/50, :global
-#   Red RGB, RGB: 240/0/20, :global
-# CMYK Colors:
-#   Violet CMYK, CMYK: 71/65/0/0, :global
-#   Blue CMYK, CMYK: 71/10/0/0, :global
-#   Green CMYK, CMYK: 100/0/50/0, :global
-#   Red CMYK, CMYK: 0/100/100/0, :global
+
+# Group 1:
+#   Violet, RGB: 90/0/255, :global
+#   Blue, RGB: 0/0/255, :global
+#   Green, RGB: 50/255/50, :global
+#   Red, RGB: 240/0/20, :global
+
+# Group 2
+#   Orange CMYK, CMYK: 0/80/100/0, :global
+#   Yellow CMYK, CMYK: 0/20/100/0, :global
+
 # ---------------
-# 8 colors
-# 2 groups
+# 8 colors, 2 groups
 ```
 
 ## Development
