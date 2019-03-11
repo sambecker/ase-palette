@@ -1,6 +1,6 @@
 require "ase_builder/version"
 
-module AseBuilder
+module ASEBuilder
   class Error < StandardError; end
   # Your code goes here...
 end

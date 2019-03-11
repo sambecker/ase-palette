@@ -5,7 +5,7 @@ require "ase_builder/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "ase_builder"
-  spec.version       = AseBuilder::VERSION
+  spec.version       = ASEBuilder::VERSION
   spec.authors       = ["Sam Becker"]
   spec.email         = ["sam@sambecker.com"]
 
