@@ -2,8 +2,6 @@
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ase_builder`. To experiment with that code, run `bin/console` for an interactive prompt.
 
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -22,7 +20,18 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+# Create palette
+palette = ASEBuilder::Palette.new
+
+# Add colors
+palatte.add_rgb_color('RGB Color Name', 255, 0, 0)
+palatte.add_cmyk_color('CMYK Color Name', 0, 100, 100, 0)
+palatte.add_lab_color('LAB Color Name', 80, 0, 0)
+
+# Output (from Rails)
+send_data palette.to_binary, type: 'application/octet-stream', filename: 'palette.ase'
+```
 
 ## Development
 
