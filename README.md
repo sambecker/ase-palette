@@ -31,9 +31,6 @@ palatte.add_rgb_color('RGB Color Name', 255, 0, 0)
 palatte.add_cmyk_color('CMYK Color Name', 0, 100, 100, 0)
 palatte.add_lab_color('LAB Color Name', 54, 81, 70)
 palatte.add_gray_color('GRAY Color Name', 50)
-
-# Output (from Rails)
-send_data palette.to_binary, type: 'application/octet-stream', filename: 'palette.ase'
 ```
 
 ### Grouped colors
@@ -50,6 +47,20 @@ palette.add_rgb_color_to_group('Group Name', 'RGB Color Name', 0, 100, 100, 0)
 palette.add_cmyk_color_to_group('Group Name', 'CMYK Color Name', 0, 100, 100, 0)
 palette.add_lab_color_to_group('Group Name', 'LAB Color Name', 54, 81, 70)
 palette.add_gray_color_to_group('Group Name', 'GRAY Color Name', 50)
+```
+
+### Output
+
+```ruby
+# Store file
+IO.binwrite('palette.ase', palette.to_binary)
+
+# Send file (from Rails controller)
+respond_to do |format|
+  format.ase {
+    send_data palette.to_binary, type: 'application/octet-stream', filename: 'palette.ase' 
+  }
+end
 ```
 
 ## Development
