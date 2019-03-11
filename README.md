@@ -70,11 +70,11 @@ palette = ASEPalette.open('path/to/file.ase')
 palette.to_s
 # color
 # color
-# group
-#  color
-# group
-#  color
-#  color
+# - group
+#   color
+# - group
+#   color
+#   color
 ```
 
 ## Development
