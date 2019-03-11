@@ -104,6 +104,25 @@ module ASEPalette
 
     # Output
 
+    def to_s
+      s = "ASEPalette #{version}\n"
+      divider = "#{"-" * (s.length - 1)}\n"
+      s += divider
+      @colors.each do |color|
+        s += "#{color_to_s(color)}\n"
+      end
+      @groups.each do |group|
+        s += "#{group[:name]}:\n"
+        group[:colors].each do |color|
+          s += "  #{color_to_s(color)}\n"
+        end
+      end
+      s += divider
+      s += "#{color_count} color#{if color_count != 0 then "s" end}\n"
+      s += "#{group_count} group#{if color_count != 0 then "s" end}\n"
+      s
+    end
+
     def to_binary
       palette = BinaryService.build_binary_palette(
         @colors,
@@ -119,6 +138,11 @@ module ASEPalette
     end 
 
     private
+
+    def color_to_s(color)
+      "#{color[:name].encode(Encoding::UTF_8)}: " \
+      "#{color[:data].map { |k, v| v }.join("/")}"
+    end
 
     def add_color(name, model, data, type)
       unless @colors.select { |color| color[:name] == name }.length > 0

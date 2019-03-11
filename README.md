@@ -68,14 +68,23 @@ end
 
 ```ruby
 palette = ASEPalette.open('path/to/file.ase')
-palette.to_s
-# color
-# color
-# - group
-#   color
-# - group
-#   color
-#   color
+puts palette
+
+# ASEPalette 2.11
+# ---------------
+# RGB Colors:
+#   Violet RGB: 50/100/255
+#   Blue RGB: 0/0/255
+#   Green RGB: 50/255/50
+#   Red RGB: 240/0/20
+# CMYK Colors:
+#   Violet CMYK: 71/65/0/0
+#   Blue CMYK: 71/10/0/0
+#   Green CMYK: 100/0/50/0
+#   Red CMYK: 0/100/100/0
+# ---------------
+# 8 colors
+# 2 groups
 ```
 
 ## Development
