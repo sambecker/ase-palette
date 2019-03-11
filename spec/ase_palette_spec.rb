@@ -110,5 +110,41 @@ RSpec.describe ASEPalette do
         expect(@palette.color_count).to eq 0
       end
     end
+
+    context "prints" do
+      it "palette information" do
+        @palette.set_version(2, 0)
+        @palette.add_rgb_color("First color", 255, 100, 50)
+        group_name = "First group"
+        group = @palette.create_group(group_name)
+        @palette.add_rgb_color_to_group(
+          group_name, "Second color", 10, 200, 20)
+        @palette.add_cmyk_color_to_group(
+          group_name, "Third color", 100, 0, 0, 0)
+        group_name = "Second group"
+        @palette.create_group(group_name)
+        @palette.add_lab_color_to_group(
+          group_name, "Fourth color", 100, 50, 4, :spot)
+        @palette.add_gray_color_to_group(
+          group_name, "Fifth color", 55)
+        expect(@palette.to_s).to eq(
+          "ASEPalette 2.0\n"\
+          "--------------\n"\
+          "\n"\
+          "First color, RGB: 255/100/50, :global\n"\
+          "\n"\
+          "- First group:\n"\
+          "  Second color, RGB: 10/200/20, :global\n"\
+          "  Third color, CMYK: 100/0/0/0, :global\n"\
+          "\n"\
+          "- Second group:\n"\
+          "  Fourth color, LAB: 100/50/4, :spot\n"\
+          "  Fifth color, GRAY: 55, :global\n"\
+          "\n"\
+          "--------------\n"\
+          "5 colors, 2 groups"
+        )
+      end
+    end
   end
 end

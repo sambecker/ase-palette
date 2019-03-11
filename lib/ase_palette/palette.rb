@@ -108,18 +108,29 @@ module ASEPalette
       s = "ASEPalette #{version}\n"
       divider = "#{"-" * (s.length - 1)}\n"
       s += divider
-      @colors.each do |color|
-        s += "#{color_to_s(color)}\n"
-      end
-      @groups.each do |group|
-        s += "#{group[:name]}:\n"
-        group[:colors].each do |color|
-          s += "  #{color_to_s(color)}\n"
+      if color_count > 0 || group_count > 0
+        s += "\n"
+        @colors.each do |color|
+          s += "#{color_to_s(color)}\n"
         end
+        s += "\n"
+        @groups.each do |group|
+          s += "- #{group[:name]}:\n"
+          if group[:colors].length > 0
+            group[:colors].each do |color|
+              s += "  #{color_to_s(color)}\n"
+            end
+          else
+            s += "  <empty>\n"
+          end
+          s += "\n"
+        end
+      else
+        s += "This palette is empty\n"
       end
       s += divider
-      s += "#{color_count} color#{if color_count != 0 then "s" end}\n"
-      s += "#{group_count} group#{if color_count != 0 then "s" end}\n"
+      s += "#{color_count} color#{if color_count != 1 then "s" end}, " \
+           "#{group_count} group#{if color_count != 1 then "s" end}"
       s
     end
 
@@ -140,8 +151,10 @@ module ASEPalette
     private
 
     def color_to_s(color)
-      "#{color[:name].encode(Encoding::UTF_8)}: " \
-      "#{color[:data].map { |k, v| v }.join("/")}"
+      "#{color[:name].encode(Encoding::UTF_8)}, " \
+      "#{color[:model].upcase}: " \
+      "#{color[:data].map { |k, v| v }.join("/")}, " \
+      ":#{color[:type]}"
     end
 
     def add_color(name, model, data, type)

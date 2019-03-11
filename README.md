@@ -68,8 +68,8 @@ end
 
 ```ruby
 palette = ASEPalette.open('path/to/file.ase')
-puts palette
 
+puts palette
 # ASEPalette 2.11
 # ---------------
 # RGB Colors:
