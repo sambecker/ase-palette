@@ -18,7 +18,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install ase_builder
+    $ gem install ase-builder
 
 ## Usage
 
@@ -32,7 +32,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/ase_builder.
+Bug reports and pull requests are welcome on GitHub at https://github.com/sambecker/ase-builder.
 
 ## License
 
