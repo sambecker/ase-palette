@@ -20,12 +20,16 @@ Or install it yourself as:
 
 ## Usage
 
-### Add individual colors
+### Create palette from scratch
 
 ```ruby
 # Create palette
 palette = ASEPalette.new
+```
 
+### Add individual colors
+
+```ruby
 # Add colors
 palatte.add_rgb_color  'RGB Color Name', 255, 0, 0
 palatte.add_cmyk_color 'CMYK Color Name', 0, 100, 100, 0
@@ -36,9 +40,6 @@ palatte.add_gray_color 'GRAY Color Name', 50
 ### Add grouped colors
 
 ```ruby
-# Create palette
-palette = ASEPalette.new
-
 # Create group
 palette.create_group 'Group Name'
 
