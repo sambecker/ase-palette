@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-```
+```ruby
 # Create palette
 palette = ASEBuilder::Palette.new
 
