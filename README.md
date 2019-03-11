@@ -20,6 +20,8 @@ Or install it yourself as:
 
 ## Usage
 
+### Individual colors
+
 ```ruby
 # Create palette
 palette = ASEBuilder::Palette.new
@@ -27,10 +29,27 @@ palette = ASEBuilder::Palette.new
 # Add colors
 palatte.add_rgb_color('RGB Color Name', 255, 0, 0)
 palatte.add_cmyk_color('CMYK Color Name', 0, 100, 100, 0)
-palatte.add_lab_color('LAB Color Name', 80, 0, 0)
+palatte.add_lab_color('LAB Color Name', 54, 81, 70)
+palatte.add_gray_color('GRAY Color Name', 50)
 
 # Output (from Rails)
 send_data palette.to_binary, type: 'application/octet-stream', filename: 'palette.ase'
+```
+
+### Grouped colors
+
+```ruby
+# Create palette
+palette = ASEBuilder::Palette.new
+
+# Create group
+palette.create_group('Group Name')
+
+# Add colors
+palette.add_rgb_color_to_group('Group Name', 'RGB Color Name', 0, 100, 100, 0)
+palette.add_cmyk_color_to_group('Group Name', 'CMYK Color Name', 0, 100, 100, 0)
+palette.add_lab_color_to_group('Group Name', 'LAB Color Name', 54, 81, 70)
+palette.add_gray_color_to_group('Group Name', 'GRAY Color Name', 50)
 ```
 
 ## Development
