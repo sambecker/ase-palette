@@ -1,11 +1,6 @@
-require "hex_string"
-require 'ase_palette/binary_service'
-
 module ASEPalette
-  DEFAULT_COLOR_TYPE = :global
-
   class Palette    
-    # Constructor
+    DEFAULT_COLOR_TYPE = :global
 
     def initialize
       @version_major = 1
@@ -36,6 +31,16 @@ module ASEPalette
 
     def group_count
       @groups.length
+    end
+
+    # Getters
+
+    def get_color(color_name)
+
+    end
+
+    def get_colors_from_group(group_name)
+
     end
 
     # Group management
@@ -135,7 +140,7 @@ module ASEPalette
     end
 
     def to_binary
-      palette = BinaryService.build_binary_palette(
+      palette = PaletteBinary.build_binary_palette(
         @colors,
         @groups,
         @version_major,
