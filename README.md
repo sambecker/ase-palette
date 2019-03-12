@@ -68,6 +68,25 @@ group.add_color(ASEPalette::Color::RGB.new("Red", 255, 0, 0, 0))
 palette.add_group(group)
 ```
 
+### Plan C
+
+```ruby
+# Create palette
+palette = ASE::Palette.new
+
+# Create group
+group   = ASE::Group.new "My Group"
+
+# Create color
+color   = ASE::Color::RGB.new "Red", 255, 0, 0
+
+# Add color to group
+group.add_color color
+
+# Add palette to group
+palette.add_group group
+```
+
 ### Export palette
 
 ```ruby

@@ -50,7 +50,7 @@ module ASEPalette
     def add_group(group)
       if group.is_a? Group
         if @groups.select { |g| g.name != group.name }.length == 0
-          @groups.push(group)
+          @groups << group
         end
       end
     end
@@ -65,7 +65,7 @@ module ASEPalette
     def add_color(color)
       if color.is_a? Color
         if @colors.select { |c| c.name != color.name }
-          @colors.push(color)
+          @colors << color
         end
       end      
     end
