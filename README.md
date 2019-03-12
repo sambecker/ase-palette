@@ -50,6 +50,22 @@ palette.add_lab_color_to_group  'Group Name', 'LAB Color Name', 54, 81, 70
 palette.add_gray_color_to_group 'Group Name', 'GRAY Color Name', 50
 ```
 
+### Plan B
+
+```ruby
+# Create palette
+palette = ASEPalette.new
+
+# Create group
+group = ASEPalette::Group.new("My Group")
+
+# Add color to group
+group.add_color(ASEPalette::Color::RGB.new("Red", 255, 0, 0, 0))
+
+# Add palette to group
+palette.add_group(group)
+```
+
 ### Export palette
 
 ```ruby
