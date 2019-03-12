@@ -59,13 +59,13 @@ palette.add_gray_color_to_group 'Group Name', 'GRAY Color Name', 50
 palette = ASEPalette.new
 
 # Create group
-group = ASEPalette::Group.new("My Group")
+group = ASEPalette::Group.new "My Group"
 
 # Add color to group
-group.add_color(ASEPalette::Color::RGB.new("Red", 255, 0, 0, 0))
+group.add_color ASEPalette::Color::RGB.new("Red", 255, 0, 0, 0)
 
 # Add palette to group
-palette.add_group(group)
+palette.add_group group
 ```
 
 ### Plan C
@@ -92,6 +92,8 @@ palette.add_group group
 ```ruby
 # Create palette
 palette = ASEPalette.new
+# or
+palette = ASEPalette::Palette.new
 
 # Create group
 group   = ASEPalette::Group.new "My Group"
