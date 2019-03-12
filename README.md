@@ -87,6 +87,25 @@ group.add_color color
 palette.add_group group
 ```
 
+### Plan D
+
+```ruby
+# Create palette
+palette = ASEPalette.new
+
+# Create group
+group   = ASEPalette::Group.new "My Group"
+
+# Create color
+color   = ASEPalette::Color::RGB.new "Red", 255, 0, 0
+
+# Add color to group
+group.add_color color
+
+# Add palette to group
+palette.add_group group
+```
+
 ### Export palette
 
 ```ruby
