@@ -127,6 +127,8 @@ end
 ```ruby
 palette = ASEPalette.open('path/to/file.ase')
 
+palette.get_color("Red") # {name: "Red", model: :rgb data: {r: 255, g: 0, b: 0}}
+
 puts palette
 # ASEPalette 2.11
 # ---------------
