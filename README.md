@@ -28,6 +28,8 @@ palette = ASEPalette.new
 ```
 
 ### Add individual colors
+#### Per Adobe's spec, colors must have unique names
+If a color with a certain name already exists it will not be added
 
 ```ruby
 # Add colors
