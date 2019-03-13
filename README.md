@@ -72,16 +72,22 @@ respond_to do |format|
 end
 ```
 
-### Importing `[UNDER DEVELOPMENT]`
+### Importing [UNDER DEVELOPMENT]
 
 ```ruby
+# Open palette from file
 palette = ASEPalette.open('path/to/palette.ase')
 
-palette.get_color("Red") # {name: "Red", model: :rgb data: {r: 255, g: 0, b: 0}}
+# Access color
+puts palette.color_with_name "Red" # Red, RGB: 255/0/0, :global
 
+# Access palette
 puts palette
-# ASEPalette 2.11
-# ---------------
+
+# ASEPalette 2.0
+# --------------
+# 
+# Red, RGB: 255/0/0, :global
 #
 # Group 1:
 #   Violet, RGB: 90/0/255, :global
@@ -93,8 +99,8 @@ puts palette
 #   Orange CMYK, CMYK: 0/80/100/0, :global
 #   Yellow CMYK, CMYK: 0/20/100/0, :global
 #
-# ---------------
-# 8 colors, 2 groups
+# --------------
+# 7 colors, 2 groups
 ```
 
 ## Legacy Usage (to be deleted)
