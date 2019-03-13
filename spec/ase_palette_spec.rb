@@ -14,7 +14,7 @@ RSpec.describe ASEPalette do
       it "with correct defaults" do
         expect(@palette.version).to             eq "1.0"
         expect(@palette.colors.length).to       eq 0
-        expect(@palette.colors(true).length).to eq 0
+        expect(@palette.colors(include_from_groups: true).length).to eq 0
         expect(@palette.groups.length).to       eq 0
       end
     end
@@ -43,7 +43,7 @@ RSpec.describe ASEPalette do
         expect(@palette.groups.length).to       eq 0
         @palette.add_color color, "New Group"
         expect(@palette.colors.length).to       eq 0
-        expect(@palette.colors(true).length).to eq 1
+        expect(@palette.colors(include_from_groups: true).length).to eq 1
         expect(@palette.groups.length).to       eq 1
       end
     end

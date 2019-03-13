@@ -21,8 +21,8 @@ module ASEPalette
 
     # Get read-only list of colors
     # Optionally include all colors from groups
-    def colors(include_colors_from_groups = false)
-      if include_colors_from_groups
+    def colors(include_from_groups: false)
+      if include_from_groups
         all_colors
       else
         @colors.clone

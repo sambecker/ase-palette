@@ -45,7 +45,7 @@ palette.colors.each do |color|
 end
 
 # Access all colors, including those from groups, as a flat list
-palette.colors(true).each do |color|
+palette.colors(include_from_groups: true).each do |color|
   puts "Found color #{color.name}"
 end
 
