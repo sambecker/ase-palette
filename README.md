@@ -20,6 +20,85 @@ Or install it yourself as:
 
 ## Usage
 
+### Writing
+
+```ruby
+# Create palette
+palette = ASEPalette.new
+
+# Create color
+color   = ASEPalette::Color::RGB.new "Red", 255, 0, 0
+
+# Add color to palette
+palette.add_color color
+
+# Add color to group
+palette.add_color color, "Group Name"
+```
+
+### Reading
+
+```ruby
+# Access all base colors
+palette.colors.each do |color|
+  puts "Found color #{color.name}"
+end
+
+# Access all colors, including those from groups, as a flat list
+palette.colors(true).each do |color|
+  puts "Found color #{color.name}"
+end
+
+# Access all colors from each group, individually
+palette.groups.each do |group|
+  puts "Found group #{group.name}"
+  group.colors.each do |color|
+    puts "- #{color.name}"
+  end
+end
+```
+
+### Exporting
+
+```ruby
+# Store file
+IO.binwrite('palette.ase', palette.to_binary)
+
+# Send file (from Rails controller)
+respond_to do |format|
+  format.ase {
+    send_data palette.to_binary, type: 'application/octet-stream', filename: 'palette.ase' 
+  }
+end
+```
+
+### Open palette (feature to come!)
+
+```ruby
+palette = ASEPalette.open('path/to/palette.ase')
+
+palette.get_color("Red") # {name: "Red", model: :rgb data: {r: 255, g: 0, b: 0}}
+
+puts palette
+# ASEPalette 2.11
+# ---------------
+#
+# Group 1:
+#   Violet, RGB: 90/0/255, :global
+#   Blue, RGB: 0/0/255, :global
+#   Green, RGB: 50/255/50, :global
+#   Red, RGB: 240/0/20, :global
+#
+# Group 2
+#   Orange CMYK, CMYK: 0/80/100/0, :global
+#   Yellow CMYK, CMYK: 0/20/100/0, :global
+#
+# ---------------
+# 8 colors, 2 groups
+```
+
+## Legacy Usage (to be deleted)
+
 ### Create palette from scratch
 
 ```ruby
@@ -106,61 +185,6 @@ group.add_color color
 
 # Add palette to group
 palette.add_group group
-```
-
-### Plan E
-
-```ruby
-# Create palette
-palette = ASEPalette.new
-
-# Create color
-color   = ASEPalette::Color::RGB.new "Red", 255, 0, 0
-
-# Add color to palette
-palette.add_color color
-
-# Add color to group
-palette.add_color color, "Group Name"
-```
-
-### Export palette
-
-```ruby
-# Store file
-IO.binwrite('palette.ase', palette.to_binary)
-
-# Send file (from Rails controller)
-respond_to do |format|
-  format.ase {
-    send_data palette.to_binary, type: 'application/octet-stream', filename: 'palette.ase' 
-  }
-end
-```
-
-### Open palette (feature to come!)
-
-```ruby
-palette = ASEPalette.open('path/to/palette.ase')
-
-palette.get_color("Red") # {name: "Red", model: :rgb data: {r: 255, g: 0, b: 0}}
-
-puts palette
-# ASEPalette 2.11
-# ---------------
-#
-# Group 1:
-#   Violet, RGB: 90/0/255, :global
-#   Blue, RGB: 0/0/255, :global
-#   Green, RGB: 50/255/50, :global
-#   Red, RGB: 240/0/20, :global
-#
-# Group 2
-#   Orange CMYK, CMYK: 0/80/100/0, :global
-#   Yellow CMYK, CMYK: 0/20/100/0, :global
-#
-# ---------------
-# 8 colors, 2 groups
 ```
 
 ## Development
