@@ -46,7 +46,7 @@ end
 
 # Access all colors, including those from groups, as a flat list
 palette.colors(include_from_groups: true).each do |color|
-  puts "Found color #{color.name}"
+  puts "Found color #{color.name}, which may or may not be in a group"
 end
 
 # Access all colors from each group, individually
@@ -72,7 +72,7 @@ respond_to do |format|
 end
 ```
 
-### Open palette (feature to come!)
+### Importing (under development)
 
 ```ruby
 palette = ASEPalette.open('path/to/palette.ase')
