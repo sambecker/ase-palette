@@ -120,11 +120,8 @@ color   = ASEPalette::Color::RGB.new "Red", 255, 0, 0
 # Add color to palette
 palette.add_color color
 
-# Create group
-palette.create_group "Group Name"
-
 # Add color to group
-palette.add_color_to_group(color, "Group Name")
+palette.add_color color, "Group Name"
 ```
 
 ### Export palette
