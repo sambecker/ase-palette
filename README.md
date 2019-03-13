@@ -18,7 +18,13 @@ Or install it yourself as:
 
 ## Usage
 
-### Writing
+### Load
+
+```ruby
+require 'ase-palette'
+```
+
+### Write
 
 ```ruby
 # Create palette
@@ -34,7 +40,7 @@ palette.add_color color
 palette.add_color color, group_name: "Group Name"
 ```
 
-### Reading
+### Read
 
 ```ruby
 # Access top-level colors
@@ -56,7 +62,7 @@ palette.colors(include_from_groups: true).each do |color|
 end
 ```
 
-### Editing
+### Edit
 
 ```ruby
 # Remove a color, including those from groups
@@ -66,7 +72,7 @@ palette.remove_color_with_name "Red"
 palette.remove_group_with_name "Group Name" 
 ```
 
-### Exporting
+### Export
 
 ```ruby
 # Store file
@@ -80,7 +86,7 @@ respond_to do |format|
 end
 ```
 
-### Importing [UNDER DEVELOPMENT]
+### Import [UNDER DEVELOPMENT]
 
 ```ruby
 # Open palette from file
