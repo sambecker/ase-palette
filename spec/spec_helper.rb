@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "ase_palette"
+require "ase-palette"
 require "test_colors"
 
 RSpec.configure do |config|
