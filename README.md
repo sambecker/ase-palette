@@ -39,22 +39,22 @@ palette.add_color color, group_name: "Group Name"
 ### Reading
 
 ```ruby
-# Access all base colors
+# Access top-level colors
 palette.colors.each do |color|
   puts "Found color #{color.name}"
 end
 
-# Access all colors, including those from groups, as a flat list
-palette.colors(include_from_groups: true).each do |color|
-  puts "Found color #{color.name}, which may or may not be in a group"
-end
-
-# Access all colors from each group, individually
+# Access colors from groups
 palette.groups.each do |group|
   puts "Found group #{group.name}"
   group.colors.each do |color|
     puts "- #{color.name}"
   end
+end
+
+# Access all colors, including those from groups, as a flat array
+palette.colors(include_from_groups: true).each do |color|
+  puts "Found color #{color.name}, which may or may not be in a group"
 end
 ```
 
