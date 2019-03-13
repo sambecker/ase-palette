@@ -1,11 +1,11 @@
-require 'bindata'
+require "bindata"
 require "hex_string"
 
-require_relative "ase_palette/version"
-require_relative "ase_palette/palette"
-require_relative "ase_palette/palette_binary"
-require_relative "ase_palette/group"
-require_relative "ase_palette/color"
+require "ase_palette/version"
+require "ase_palette/palette"
+require "ase_palette/palette_binary"
+require "ase_palette/group"
+require "ase_palette/color"
 
 module ASEPalette
   class Error < StandardError; end
