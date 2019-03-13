@@ -58,6 +58,16 @@ palette.colors(include_from_groups: true).each do |color|
 end
 ```
 
+### Editing
+
+```ruby
+# Remove a color, including those from groups
+palette.remove_color_with_name "Red"
+
+# Remove a group and all of the colors it contains
+palette.remove_group_with_name "Group Name" 
+```
+
 ### Exporting
 
 ```ruby

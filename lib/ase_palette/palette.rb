@@ -2,6 +2,7 @@ module ASEPalette
   class Palette
     # TODO: Consider removing 'with_name' from method signatures
     # TODO: Make sure to encode strings back to UTF-8 when importing ASE files
+    # TODO: Check case-sensitivity of the ASE spec for color and group names
  
     # Initialize palette
     def initialize
