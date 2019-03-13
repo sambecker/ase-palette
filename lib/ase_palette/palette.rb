@@ -1,5 +1,8 @@
 module ASEPalette
   class Palette
+    # TODO: Consider removing 'with_name' from method signatures
+    # TODO: Make sure to encode strings back to UTF-8 when importing ASE files
+ 
     # Initialize palette
     def initialize
       @version_major = 1
@@ -62,7 +65,7 @@ module ASEPalette
             true
           end
         else
-          raise Error, "A color named # already exists"
+          raise Error, "A color named #{color.name} already exists"
         end
       else
         raise Error, "Argument 'color' is not of type #{ASEPalette::Color}"
@@ -72,12 +75,26 @@ module ASEPalette
     # Create empty group in palette
     # Returns true if group is created
     def create_group(name)
-      if @groups.select { |g| g.name != group.name }.length == 0
+      if @groups.select { |group| group.name == name }.length == 0
         @groups << ASEPalette::Group.new(name)
         true
       else
-        raise Error, "A group with that name already exists"
+        raise Error, "A group named #{name} already exists"
       end
+    end
+
+    # Remove color from palette
+    # Color may or may not be in a group
+    def remove_color_with_name(name)
+      @colors = @colors.select { |color| color.name != name }
+      @groups.each { |group| group.remove_color_with_name(name) }
+      true
+    end
+
+    # Remove group, and its colors, from palette
+    def remove_group_with_name(name)
+      @groups = @groups.select { |group| group.name != name }
+      true
     end
 
     # Create string representation of palette
@@ -92,15 +109,7 @@ module ASEPalette
         end
         s += "\n"
         @groups.each do |group|
-          s += "- #{group.name}:\n"
-          if group.colors.length > 0
-            group.colors.each do |color|
-              s += "  #{color}\n"
-            end
-          else
-            s += "  <empty>\n"
-          end
-          s += "\n"
+          s += "#{group}\n"
         end
       else
         s += "This palette is empty\n"
@@ -110,6 +119,22 @@ module ASEPalette
            "#{@groups.length} group#{if @groups.length != 1 then "s" end}"
       s
     end
+
+    # Create binary representation of palette
+    def to_binary
+      palette = PaletteBinary.build_binary_palette(
+        @colors.map(&:to_h),
+        @groups.map(&:to_h),
+        @version_major,
+        @version_minor,
+      )
+      palette.to_binary_s
+    end
+
+    # Create human-readable hex representation of palette
+    def to_hex
+      to_binary.to_hex_string
+    end 
 
     private
 
@@ -122,12 +147,12 @@ module ASEPalette
     # Determines whether or not a color exists in the palette,
     # including those in groups
     def color_does_not_exist_in_palette(name)
-      all_colors.select { |c| c.name == name }.length == 0
+      all_colors.select { |color| color.name == name }.length == 0
     end
 
     # Returns a found or created group
     def find_or_create_group(name)
-      found_groups = @groups.select { |g| g.name == name }
+      found_groups = @groups.select { |group| group.name == name }
       if found_groups.length > 0
         found_groups[0]
       else

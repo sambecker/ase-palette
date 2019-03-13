@@ -2,29 +2,39 @@ module ASEPalette
   DEFAULT_COLOR_TYPE = :global
 
   class Color
-    attr_reader :name, :model, :type
+    # Name cannot changed once a color is created in order to
+    # protect the integrity of unique names in a palette
+    attr_reader :name
+    attr_accessor :type
 
+    # Get color model
+    def model
+      self.class.to_s.split('::').last.downcase.to_sym
+    end
+
+    # Convert color to string
     def to_s
       "#{@name}, " \
-      "#{@model.upcase}: " \
+      "#{model.upcase}: " \
       "#{data.values.join("/")}, " \
       ":#{@type}"
     end
 
-    def to_object
+    # Convert color to hash,
+    # necessary for binary representation
+    def to_h
       {
         name: @name,
-        model: @model,
+        model: model,
         data: data,
         type: @type,
       }
     end
 
     class RGB < Color
-      attr_reader :r, :g, :b
+      attr_accessor :r, :g, :b
       def initialize(name, r, g, b, type = DEFAULT_COLOR_TYPE)
         @name = name
-        @model = :rgb
         @r = r
         @g = g
         @b = b
@@ -36,10 +46,9 @@ module ASEPalette
     end
 
     class CMYK < Color
-      attr_reader :c, :m, :y, :k
+      attr_accessor :c, :m, :y, :k
       def initialize(name, c, m, y, k, type = DEFAULT_COLOR_TYPE)
         @name = name
-        @model = :cmyk
         @c = c
         @m = m
         @y = y
@@ -52,10 +61,9 @@ module ASEPalette
     end
 
     class LAB < Color
-      attr_reader :l, :a, :b
+      attr_accessor :l, :a, :b
       def initialize(name, l, a, b, type = DEFAULT_COLOR_TYPE)
         @name = name
-        @model = :lab
         @l = l
         @a = a
         @b = b
@@ -67,10 +75,9 @@ module ASEPalette
     end
 
     class GRAY < Color
-      attr_reader :gray
+      attr_accessor :gray
       def initialize(name, gray, type = DEFAULT_COLOR_TYPE)
         @name = name
-        @model = :gray
         @gray = gray
         @type = type
       end

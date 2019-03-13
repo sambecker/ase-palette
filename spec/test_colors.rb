@@ -26,6 +26,11 @@ COLOR_VIOLET_CMYK = [
   71, 65, 0, 0,
   :spot,
 ]
+COLOR_CYAN_CMYK = [
+  "Cyan CMYK",
+  100, 0, 0, 0,
+  :spot,
+]
 COLOR_BLUE_CMYK = [
   "Blue CMYK",
   71, 10, 0, 0,

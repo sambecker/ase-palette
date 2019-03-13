@@ -3,7 +3,6 @@ require "hex_string"
 
 require_relative "ase_palette/version"
 require_relative "ase_palette/palette"
-require_relative "ase_palette/palette_legacy"
 require_relative "ase_palette/palette_binary"
 require_relative "ase_palette/group"
 require_relative "ase_palette/color"

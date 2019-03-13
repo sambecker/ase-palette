@@ -184,7 +184,7 @@ module ASEPalette
       palette.blocks.push({
         block_type: BLOCK_TYPE_COLOR,
         block_data: {
-          name: name.encode!(Encoding::UTF_16BE),
+          name: name.encode(Encoding::UTF_16BE),
           color_model: color_model,
           color_data: color_data,
           color_type: color_type,
@@ -196,7 +196,7 @@ module ASEPalette
       palette.blocks.push({
         block_type: BLOCK_TYPE_GROUP_START,
         block_data: {
-          name: name.encode!(Encoding::UTF_16BE),
+          name: name.encode(Encoding::UTF_16BE),
         }
       })
     end
