@@ -5,7 +5,10 @@ module ASEPalette
     attr_reader :name, :model, :type
 
     def to_s
-      "#{@name}, #{@model.upcase}: #{data}, :#{@type}"
+      "#{@name}, " \
+      "#{@model.upcase}: " \
+      "#{data.values.join("/")}, " \
+      ":#{@type}"
     end
 
     def to_object
@@ -52,7 +55,7 @@ module ASEPalette
       attr_reader :l, :a, :b
       def initialize(name, l, a, b, type = DEFAULT_COLOR_TYPE)
         @name = name
-        @model = :cmyk
+        @model = :lab
         @l = l
         @a = a
         @b = b

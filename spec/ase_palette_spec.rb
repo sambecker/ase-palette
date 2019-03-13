@@ -41,10 +41,52 @@ RSpec.describe ASEPalette do
         color = ASEPalette::Color::RGB.new "Red", 255, 0, 0
         expect(@palette.colors.length).to       eq 0
         expect(@palette.groups.length).to       eq 0
-        @palette.add_color color, "New Group"
+        @palette.add_color color, group_name: "New Group"
         expect(@palette.colors.length).to       eq 0
         expect(@palette.colors(include_from_groups: true).length).to eq 1
         expect(@palette.groups.length).to       eq 1
+      end
+    end
+
+    context "prints" do
+      it "palette information" do
+        @palette.set_version(2, 0)
+        @palette.add_color(
+          ASEPalette::Color::RGB.new("First color", 255, 100, 50))
+        
+        group_name = "First group"
+        @palette.add_color(
+          ASEPalette::Color::RGB.new("Second color", 10, 200, 20),
+          group_name: group_name)
+        @palette.add_color(
+          ASEPalette::Color::CMYK.new("Third color", 100, 0, 0, 0, :normal),
+          group_name: group_name)
+
+        group_name = "Second group"
+        @palette.add_color(
+          ASEPalette::Color::LAB.new("Fourth color", 100, 50, 4, :spot),
+          group_name: group_name)
+        @palette.add_color(
+          ASEPalette::Color::GRAY.new("Fifth color", 55),
+          group_name: group_name)
+
+        expect(@palette.to_s).to eq(
+          "ASEPalette 2.0\n"\
+          "--------------\n"\
+          "\n"\
+          "First color, RGB: 255/100/50, :global\n"\
+          "\n"\
+          "- First group:\n"\
+          "  Second color, RGB: 10/200/20, :global\n"\
+          "  Third color, CMYK: 100/0/0/0, :normal\n"\
+          "\n"\
+          "- Second group:\n"\
+          "  Fourth color, LAB: 100/50/4, :spot\n"\
+          "  Fifth color, GRAY: 55, :global\n"\
+          "\n"\
+          "--------------\n"\
+          "5 colors, 2 groups"
+        )
       end
     end
 

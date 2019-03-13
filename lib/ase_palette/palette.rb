@@ -50,7 +50,7 @@ module ASEPalette
     # Optionally provide 'group_name' to place color in group
     # Group will be created if it does not exist
     # Returns true if color is added
-    def add_color(color, group_name = nil)
+    def add_color(color, group_name: nil)
       if color.is_a? Color
         if color_does_not_exist_in_palette(color.name)
           if group_name
@@ -80,14 +80,43 @@ module ASEPalette
       end
     end
 
+    # Create string representation of palette
+    def to_s
+      s = "ASEPalette #{version}\n"
+      divider = "#{"-" * (s.length - 1)}\n"
+      s += divider
+      if @colors.length > 0 || @groups.length > 0
+        s += "\n"
+        @colors.each do |color|
+          s += "#{color}\n"
+        end
+        s += "\n"
+        @groups.each do |group|
+          s += "- #{group.name}:\n"
+          if group.colors.length > 0
+            group.colors.each do |color|
+              s += "  #{color}\n"
+            end
+          else
+            s += "  <empty>\n"
+          end
+          s += "\n"
+        end
+      else
+        s += "This palette is empty\n"
+      end
+      s += divider
+      s += "#{all_colors.length} color#{if all_colors.length != 1 then "s" end}, " \
+           "#{@groups.length} group#{if @groups.length != 1 then "s" end}"
+      s
+    end
+
     private
 
     # Returns an array of all colors in the palette,
     # including those in groups
     def all_colors
-      colors = @colors.clone
-      @groups.each { |group| colors << group.colors }
-      colors
+      @colors + @groups.map { |group| group.colors }.flatten
     end
 
     # Determines whether or not a color exists in the palette,
