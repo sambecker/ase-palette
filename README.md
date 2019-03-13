@@ -108,6 +108,25 @@ group.add_color color
 palette.add_group group
 ```
 
+### Plan E
+
+```ruby
+# Create palette
+palette = ASEPalette.new
+
+# Create color
+color   = ASEPalette::Color::RGB.new "Red", 255, 0, 0
+
+# Add color to palette
+palette.add_color color
+
+# Create group
+palette.create_group "Group Name"
+
+# Add color to group
+palette.add_color_to_group(color, "Group Name")
+```
+
 ### Export palette
 
 ```ruby
@@ -125,7 +144,7 @@ end
 ### Open palette (feature to come!)
 
 ```ruby
-palette = ASEPalette.open('path/to/file.ase')
+palette = ASEPalette.open('path/to/palette.ase')
 
 palette.get_color("Red") # {name: "Red", model: :rgb data: {r: 255, g: 0, b: 0}}
 
