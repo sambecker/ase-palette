@@ -1,6 +1,6 @@
 require "bundler/setup"
 require "ase-palette"
-require "test_colors"
+require "spec_colors"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
