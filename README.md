@@ -33,7 +33,7 @@ color   = ASEPalette::Color::RGB.new "Red", 255, 0, 0
 palette.add_color color
 
 # Add color to group
-palette.add_color color, "Group Name"
+palette.add_color color, group_name: "Group Name"
 ```
 
 ### Reading
