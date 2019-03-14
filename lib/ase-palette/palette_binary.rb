@@ -21,12 +21,12 @@ module ASEPalette
     class ASEBinData < BinData::Record
       endian :big
     
-      string :signature, value: "ASEF"
+      string :signature, value: "ASEF", read_length: 4
       uint16 :version_major, initial_value: DEFAULT_VERSION_MAJOR
       uint16 :version_minor, initial_value: DEFAULT_VERSION_MINOR
       uint32 :block_count, value: -> { blocks.length }
     
-      array :blocks do
+      array :blocks, initial_length: -> { block_count } do
         uint16 :block_type
         uint32 :block_length, value: -> {
           block_length = 0
@@ -53,7 +53,7 @@ module ASEPalette
           class BlockGroupStart < BinData::Record
             endian :big
             uint16 :name_length, value: -> { name.length / 2 + 1 }
-            string :name, read_length: :name_length
+            string :name, read_length: -> { (name_length - 1) * 2 }
             uint16 :null_padding, value: 0
           end
           class BlockGroupEnd < BinData::Record
@@ -61,9 +61,9 @@ module ASEPalette
           class BlockColor < BinData::Record
             endian :big
             uint16 :name_length, value: -> { name.length / 2 + 1 }
-            string :name, read_length: :name_length
+            string :name, read_length: -> { (name_length - 1) * 2 }
             uint16 :null_padding, value: 0
-            string :color_model, initial_value: COLOR_MODEL_DEFAULT
+            string :color_model, read_length: 4
             choice :color_data, selection: -> { color_model } do
               class ColorDataRGB < BinData::Record
                 endian :big
@@ -132,6 +132,12 @@ module ASEPalette
         binary_end_group(palette)
       end
       palette
+    end
+
+    def self.build_binary_hash_from_file(path)
+      file = File.open(path)
+      binary = ASEBinData.read(file)
+      binary_to_hash(binary)
     end
 
     private
@@ -205,6 +211,78 @@ module ASEPalette
       palette.blocks.push({
         block_type: BLOCK_TYPE_GROUP_END,
       })
+    end
+
+    def self.binary_to_hash(binary)
+      palette = {
+        version_major: binary.version_major,
+        version_minor: binary.version_minor,
+        colors: [],
+        groups: [],
+      }
+
+      current_group = nil
+      binary.blocks.each do |block|
+        block_type = block[:block_type]
+        block_data = block[:block_data]
+        if block_type == BLOCK_TYPE_COLOR
+          color = {
+            name: block_data[:name].encode(Encoding::UTF_8),
+          }
+
+          color_data = block_data[:color_data]
+
+          case block_data[:color_model]
+          when COLOR_MODEL_RGB
+            color[:model] = :rgb
+            color[:data] = {
+              r: (color_data[:red] * 255).to_i,
+              g: (color_data[:green] * 255).to_i,
+              b: (color_data[:blue] * 255).to_i,
+            }
+          when COLOR_MODEL_CMYK, COLOR_MODEL_GRAY
+            color[:model] = :cmyk
+            color[:data] = {
+              c: (color_data[:cyan] * 100).to_i,
+              m: (color_data[:magenta] * 100).to_i,
+              y: (color_data[:yellow] * 100).to_i,
+              k: (color_data[:black] * 100).to_i,
+            }
+          when COLOR_MODEL_LAB
+            color[:model] = :lab
+            color[:data] = {
+              l: (color_data[:lightness] * 100.0).to_i,
+              a: (color_data[:a]).to_i,
+              b: (color_data[:b]).to_i,
+            }
+          end
+
+          case block_data[:color_type]
+          when COLOR_TYPE_GLOBAL
+            color[:type] = :global
+          when COLOR_TYPE_SPOT
+            color[:type] = :spot
+          when COLOR_TYPE_NORMAL
+            color[:type] = :normal
+          end
+
+          if current_group
+            current_group[:colors] << color
+          else
+            palette[:colors] << color
+          end
+        elsif block_type == BLOCK_TYPE_GROUP_START
+          current_group = {
+            name: block_data[:name].encode(Encoding::UTF_8),
+            colors: []
+          }
+          palette[:groups] << current_group
+        elsif block_type == BLOCK_TYPE_GROUP_END
+          current_group = nil
+        end
+      end
+
+      palette
     end
   end
 end

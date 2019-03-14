@@ -5,7 +5,21 @@ RSpec.describe ASEPalette do
     end
   end
 
-  context "palette" do
+  context "palette opened from file" do
+    before do
+      # @palette = ASEPalette.open "spec/palette_adobe.ase"
+      @palette = ASEPalette.open "spec/palette_complex.ase"
+      # @palette = ASEPalette.open "spec/palette_simple.ase"
+    end
+
+    it "has correct shape" do
+      expect(@palette.version).to             eq "1.0"
+      expect(@palette.colors.length).to       eq 0
+      expect(@palette.groups.length).to       eq 3
+    end
+  end
+
+  context "new palette" do
     before do
       @palette = ASEPalette.new
     end

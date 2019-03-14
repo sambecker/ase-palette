@@ -13,4 +13,8 @@ module ASEPalette
   def self.new
     Palette.new
   end
+
+  def self.open(path)
+    Palette.new(path)
+  end
 end
