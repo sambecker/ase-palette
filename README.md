@@ -1,5 +1,9 @@
 # ASEPalette
 
+[![Gem Version](https://badge.fury.io/rb/ase-palette.svg)](https://badge.fury.io/rb/ase-palette)
+
+Create and manage Adobe ASE color palettes in Ruby.
+
 ## Installation
 
 Add this line to your application's Gemfile:
