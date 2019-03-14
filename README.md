@@ -82,17 +82,13 @@ respond_to do |format|
 end
 ```
 
-### Import [UNDER DEVELOPMENT]
+### Import
 
 ```ruby
 # Open palette from file
-palette = ASEPalette.open('path/to/palette.ase')
+palette = ASEPalette.new('path/to/palette.ase')
 
-# Access color
-puts palette.color_with_name "Red"
-# Red, RGB: 255/0/0, :global
-
-# Access palette
+# Access palette colors
 puts palette
 # ASEPalette 2.0
 # --------------

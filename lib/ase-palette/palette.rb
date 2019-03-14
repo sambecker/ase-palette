@@ -143,7 +143,8 @@ module ASEPalette
 
     private
 
-    # Sets all palette values based on a hash object
+    # Set palette values from binary-derived hash
+    # Used to populate a Palette from an ASE file
     def initialize_values_from_palette_hash(palette_hash)
       @version_major = palette_hash[:version_major]
       @version_minor = palette_hash[:version_minor]
@@ -157,6 +158,8 @@ module ASEPalette
       end
     end
 
+    # Create Color object from binary-derived hash
+    # Used to populate a Palette from an ASE file
     def color_from_hash(color)
       case color[:model]
       when :rgb
