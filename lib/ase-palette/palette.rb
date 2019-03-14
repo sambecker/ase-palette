@@ -12,6 +12,11 @@ module ASEPalette
       @groups = []
     end
 
+    # Open palette from file
+    def open(path)
+      
+    end
+
     # Get palette version
     def version
       "#{@version_major}.#{@version_minor}"
