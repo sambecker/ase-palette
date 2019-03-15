@@ -1,4 +1,4 @@
-# ASEPalette
+# 🎨 ASEPalette
 
 [<img src="https://img.shields.io/gem/v/ase-palette.svg?color=g" />](https://rubygems.org/gems/ase-palette)
 [<img src="https://img.shields.io/gem/dt/ase-palette.svg?color=g" />](https://rubygems.org/gems/ase-palette)
