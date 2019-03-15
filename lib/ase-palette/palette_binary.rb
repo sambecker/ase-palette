@@ -20,6 +20,32 @@ module ASEPalette
 
     class ASEBinData < BinData::Record
       endian :big
+
+      class String16Null < BinData::Primitive
+        endian :big
+
+        uint16 :len, value: -> { data.length / 2 + 1 }
+        string :data, read_length: -> { (len - 1) * 2 }
+        uint16 :null_terminator, value: 0
+
+        # Force UTF-16 string encoding when anonymous bytes are read in,
+        # then encode for UTF-8 when user requests the string
+        def get
+          self.data.force_encoding(Encoding::UTF_16BE).encode(Encoding::UTF_8)
+        end
+
+        # Expect a UTF-8 string when setting
+        def set(string)
+          self.data = string.encode(Encoding::UTF_16BE)
+        end
+
+        # Calculate size, in bytes, of
+        # UTF-16-encoded string and
+        # null terminator
+        def size
+          self.data.length + 2
+        end
+      end
     
       string :signature, value: "ASEF", read_length: 4
       uint16 :version_major, initial_value: DEFAULT_VERSION_MAJOR
@@ -28,14 +54,15 @@ module ASEPalette
     
       array :blocks, initial_length: -> { block_count } do
         uint16 :block_type
+
         uint32 :block_length, value: -> {
           block_length = 0
           if block_type == BLOCK_TYPE_COLOR ||
             block_type == BLOCK_TYPE_GROUP_START
-            block_length += block_data.name.length
+            block_length += block_data.name.size
           end
           if block_type == BLOCK_TYPE_COLOR
-            block_length += 10
+            block_length += 8
             case block_data.color_model
             when COLOR_MODEL_RGB
               block_length += 4 * 3
@@ -45,24 +72,21 @@ module ASEPalette
               block_length += 4 * 3
             end
           elsif block_type == BLOCK_TYPE_GROUP_START
-            block_length += 4
+            block_length += 2
           end
           block_length
         }
+
         choice :block_data, selection: -> { block_type } do
           class BlockGroupStart < BinData::Record
             endian :big
-            uint16 :name_length, value: -> { name.length / 2 + 1 }
-            string :name, read_length: -> { (name_length - 1) * 2 }
-            uint16 :null_padding, value: 0
+            String16Null :name
           end
           class BlockGroupEnd < BinData::Record
           end
           class BlockColor < BinData::Record
             endian :big
-            uint16 :name_length, value: -> { name.length / 2 + 1 }
-            string :name, read_length: -> { (name_length - 1) * 2 }
-            uint16 :null_padding, value: 0
+            String16Null :name
             string :color_model, read_length: 4
             choice :color_data, selection: -> { color_model } do
               class ColorDataRGB < BinData::Record
@@ -190,7 +214,7 @@ module ASEPalette
       palette.blocks.push({
         block_type: BLOCK_TYPE_COLOR,
         block_data: {
-          name: name.encode(Encoding::UTF_16BE),
+          name: name,
           color_model: color_model,
           color_data: color_data,
           color_type: color_type,
@@ -202,7 +226,7 @@ module ASEPalette
       palette.blocks.push({
         block_type: BLOCK_TYPE_GROUP_START,
         block_data: {
-          name: name.encode(Encoding::UTF_16BE),
+          name: name
         }
       })
     end
@@ -226,7 +250,7 @@ module ASEPalette
         block_type = block[:block_type]
         block_data = block[:block_data]
         if block_type == BLOCK_TYPE_COLOR || block_type == BLOCK_TYPE_GROUP_START
-          block_name = block_data[:name].force_encoding(Encoding::UTF_16BE).encode(Encoding::UTF_8)
+          block_name = block_data[:name]
         end
         if block_type == BLOCK_TYPE_COLOR
           color = { name: block_name }
