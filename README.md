@@ -1,10 +1,7 @@
 # ASEPalette
 
-[![Gem Version](https://badge.fury.io/rb/ase-palette.svg)](https://badge.fury.io/rb/ase-palette)
-
-[![Gem Version](https://img.shields.io/gem/v/ase-palette.svg?color=g)](https://rubygems.org/gems/ase-palette)
-
-[![Gem Downloads](https://img.shields.io/gem/dt/ase-palette.svg?color=g)](https://rubygems.org/gems/ase-palette)
+[<img src="https://img.shields.io/gem/v/ase-palette.svg?color=g" />](https://rubygems.org/gems/ase-palette)
+[<img src="https://img.shields.io/gem/dt/ase-palette.svg?color=g" />](https://rubygems.org/gems/ase-palette)
 
 Create and manage Adobe ASE color palettes in Ruby.
 
