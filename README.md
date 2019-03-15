@@ -62,7 +62,7 @@ end
 # Remove a color, including those from groups
 palette.remove_color_with_name "Red"
 
-# Remove a group and all of the colors it contains
+# Remove a group and all of the colors in it
 palette.remove_group_with_name "Group Name" 
 ```
 
@@ -97,11 +97,14 @@ puts palette
 #   Violet, RGB: 90/0/255, :global
 #   Blue, RGB: 0/0/255, :global
 #   Green, RGB: 50/255/50, :global
-#   Red, RGB: 240/0/20, :global
 #
 # Group 2
 #   Orange CMYK, CMYK: 0/80/100/0, :global
 #   Yellow CMYK, CMYK: 0/20/100/0, :global
+# 
+# Group 3
+#   PANTONE Yellow C, LAB: 89/-1/111, :spot
+#   PANTONE Orange 021 C, LAB: 61/66/85, :spot
 #
 # --------------
 # 7 colors, 2 groups
