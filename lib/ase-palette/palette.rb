@@ -71,7 +71,21 @@ module ASEPalette
           raise Error, "A color named #{color.name} already exists"
         end
       else
-        raise Error, "Argument 'color' is not of type #{ASEPalette::Color}"
+        raise Error, "Argument 'color' must be of type #{ASEPalette::Color}"
+      end
+    end
+
+    # Add multiple colors to palette
+    # 'colors' must be an array of Color objects
+    # Optionally provide 'group_name' to place color in group
+    # Group will be created if it does not exist
+    def add_colors(colors, group_name: nil)
+      if colors.is_a? Array
+        colors.each do |color|
+          add_color(color, group_name: group_name)
+        end
+      else
+        raise Error, "Argument 'colors' must be of type #{Array}"
       end
     end
 
