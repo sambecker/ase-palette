@@ -225,10 +225,11 @@ module ASEPalette
       binary.blocks.each do |block|
         block_type = block[:block_type]
         block_data = block[:block_data]
+        if block_type == BLOCK_TYPE_COLOR || block_type == BLOCK_TYPE_GROUP_START
+          block_name = block_data[:name].force_encoding(Encoding::UTF_16BE).encode(Encoding::UTF_8)
+        end
         if block_type == BLOCK_TYPE_COLOR
-          color = {
-            name: block_data[:name].encode(Encoding::UTF_8),
-          }
+          color = { name: block_name }
 
           color_data = block_data[:color_data]
 
@@ -236,24 +237,24 @@ module ASEPalette
           when COLOR_MODEL_RGB
             color[:model] = :rgb
             color[:data] = {
-              r: (color_data[:red] * 255).to_i,
-              g: (color_data[:green] * 255).to_i,
-              b: (color_data[:blue] * 255).to_i,
+              r: (color_data[:red] * 255.0).round,
+              g: (color_data[:green] * 255.0).round,
+              b: (color_data[:blue] * 255.0).round,
             }
           when COLOR_MODEL_CMYK, COLOR_MODEL_GRAY
             color[:model] = :cmyk
             color[:data] = {
-              c: (color_data[:cyan] * 100).to_i,
-              m: (color_data[:magenta] * 100).to_i,
-              y: (color_data[:yellow] * 100).to_i,
-              k: (color_data[:black] * 100).to_i,
+              c: (color_data[:cyan] * 100.0).round,
+              m: (color_data[:magenta] * 100.0).round,
+              y: (color_data[:yellow] * 100.0).round,
+              k: (color_data[:black] * 100.0).round,
             }
           when COLOR_MODEL_LAB
             color[:model] = :lab
             color[:data] = {
-              l: (color_data[:lightness] * 100.0).to_i,
-              a: (color_data[:a]).to_i,
-              b: (color_data[:b]).to_i,
+              l: (color_data[:lightness] * 100.0).round,
+              a: (color_data[:a]).round,
+              b: (color_data[:b]).round,
             }
           end
 
@@ -273,7 +274,7 @@ module ASEPalette
           end
         elsif block_type == BLOCK_TYPE_GROUP_START
           current_group = {
-            name: block_data[:name].encode(Encoding::UTF_8),
+            name: block_name,
             colors: []
           }
           palette[:groups] << current_group

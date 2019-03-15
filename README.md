@@ -2,6 +2,10 @@
 
 [![Gem Version](https://badge.fury.io/rb/ase-palette.svg)](https://badge.fury.io/rb/ase-palette)
 
+[![Gem Version](https://img.shields.io/gem/v/ase-palette.svg?color=g)](https://rubygems.org/gems/ase-palette)
+
+[![Gem Downloads](https://img.shields.io/gem/dt/ase-palette.svg?color=g)](https://rubygems.org/gems/ase-palette)
+
 Create and manage Adobe ASE color palettes in Ruby.
 
 ## Installation
@@ -86,7 +90,7 @@ end
 
 ```ruby
 # Open palette from file
-palette = ASEPalette.new('path/to/palette.ase')
+palette = ASEPalette.open 'path/to/palette.ase'
 
 # Access palette colors
 puts palette

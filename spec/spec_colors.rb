@@ -1,7 +1,7 @@
 # RGB
 COLOR_VIOLET_RGB = [
   "Violet RGB",
-  50, 100, 255,
+  52, 100, 255,
   :spot,
 ]
 COLOR_BLUE_RGB = [
@@ -11,7 +11,7 @@ COLOR_BLUE_RGB = [
 ]
 COLOR_GREEN_RGB = [
   "Green RGB",
-  50, 255, 50,
+  50, 255, 52,
   :spot,
 ]
 COLOR_RED_RGB = [
@@ -23,7 +23,7 @@ COLOR_RED_RGB = [
 # CMYK
 COLOR_VIOLET_CMYK = [
   "Violet CMYK",
-  71, 65, 0, 0,
+  71, 52, 0, 0,
   :spot,
 ]
 COLOR_CYAN_CMYK = [
@@ -62,8 +62,13 @@ COLOR_GRAY = [
 ]
 
 # PANTONE
+# COLOR_PANTONE_117_C = [
+#   "PANTONE 117 C",
+#   66.27451181411743, 12, 79,
+#   :spot,
+# ]
 COLOR_PANTONE_117_C = [
   "PANTONE 117 C",
-  66.27451181411743, 12, 79,
+  66, 12, 79,
   :spot,
 ]
