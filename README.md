@@ -15,13 +15,13 @@ gem 'ase-palette'
 
 ## Usage
 
-### Load
+### 🚀 Load
 
 ```ruby
 require 'ase-palette'
 ```
 
-### Write
+### 📝 Write
 
 ```ruby
 # Create palette
@@ -37,7 +37,7 @@ palette.add_color color
 palette.add_color color, group_name: "Group Name"
 ```
 
-### Read
+### 📖 Read
 
 ```ruby
 # Access top-level colors
@@ -59,7 +59,7 @@ palette.colors(include_from_groups: true).each do |color|
 end
 ```
 
-### Edit
+### 🖋 Edit
 
 ```ruby
 # Remove a color, including those from groups
@@ -69,7 +69,7 @@ palette.remove_color_with_name "Red"
 palette.remove_group_with_name "Group Name" 
 ```
 
-### Export
+### ⬆️ Export
 
 ```ruby
 # Store file
@@ -83,7 +83,7 @@ respond_to do |format|
 end
 ```
 
-### Import
+### ⬇️ Import
 
 ```ruby
 # Open palette from file
