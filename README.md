@@ -24,17 +24,14 @@ require 'ase-palette'
 ### 📝 Write
 
 ```ruby
-# Create palette
+# Create a palette
 palette = ASEPalette.new
 
-# Create color
-color   = ASEPalette::Color::RGB.new "Red", 255, 0, 0
+# Add a color
+palette.add_color ASEPalette::Color::RGB.new "Red", 255, 0, 0
 
-# Add color to palette
-palette.add_color color
-
-# Add color to group
-palette.add_color color, group_name: "Group Name"
+# Add a color to a group
+palette.add_color ASEPalette::Color::CMYK.new "Yellow", 100, 0, 0, 0, group_name: "My Group"
 ```
 
 ### 📖 Read

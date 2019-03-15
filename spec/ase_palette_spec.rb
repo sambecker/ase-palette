@@ -69,8 +69,8 @@ RSpec.describe ASEPalette do
         color_1 = ASEPalette::Color::RGB.new "Red RGB", 255, 0, 0
         color_2 = ASEPalette::Color::CMYK.new "Red CMYK", 0, 100, 100, 0
         @palette.add_colors [color_1, color_2], group_name: "Group"
-        expect(@palette.groups.length).to eq 1
-        expect(@palette.group_with_name("Group").colors.length).to eq 2
+        expect(@palette.groups.length).to                           eq 1
+        expect(@palette.group_with_name("Group").colors.length).to  eq 2
       end
     end
 
