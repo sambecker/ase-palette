@@ -40,10 +40,10 @@ module ASEPalette
           self.data = string.encode(Encoding::UTF_16BE)
         end
 
-        # Calculate size, in bytes, of
-        # UTF-16-encoded string +
-        # uint16 length of string (2 bytes) +
-        # null terminator (2 bytes)
+        # Calculate total size, in bytes, of:
+        # - UTF-16-encoded string
+        # - uint16 length of string (2 bytes)
+        # - null terminator (2 bytes)
         def size
           self.data.length + 4
         end
@@ -60,7 +60,7 @@ module ASEPalette
         uint32 :block_length, value: -> {
           block_length = 0
           if block_type == BLOCK_TYPE_GROUP_START ||
-            block_type == BLOCK_TYPE_COLOR
+             block_type == BLOCK_TYPE_COLOR
             block_length += block_data.name.size
           end
           if block_type == BLOCK_TYPE_COLOR
@@ -115,8 +115,7 @@ module ASEPalette
               ColorDataRGB  COLOR_MODEL_RGB
               ColorDataCMYK COLOR_MODEL_CMYK
               ColorDataLAB  COLOR_MODEL_LAB
-              # Grayscale data is stored in a CMYK structure
-              ColorDataCMYK COLOR_MODEL_GRAY
+              ColorDataCMYK COLOR_MODEL_GRAY # Grayscale data stored in CMYK structure
             end
             uint16 :color_type, initial_value: COLOR_TYPE_DEFAULT
           end
