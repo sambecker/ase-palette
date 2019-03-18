@@ -1,7 +1,5 @@
 module ASEPalette
-  class Palette
-    # TODO: Consider removing 'with_name' from method signatures
- 
+  class Palette 
     # Initialize palette
     def initialize(path = nil)
       @version_major = 1
@@ -197,13 +195,13 @@ module ASEPalette
       end
     end
 
-    # Returns an array of all colors in the palette,
+    # Returns a copied array of all colors in palette,
     # including those in groups
     def all_colors
       @colors + @groups.map { |group| group.colors }.flatten
     end
 
-    # Determines whether or not a color exists in the palette,
+    # Determines whether color exists in palette,
     # including those in groups
     def color_does_not_exist(name)
       all_colors.select { |color| color.name == name }.length == 0
