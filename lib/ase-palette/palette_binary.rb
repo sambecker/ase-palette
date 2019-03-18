@@ -28,22 +28,24 @@ module ASEPalette
         string :data, read_length: -> { (len - 1) * 2 }
         uint16 :null_terminator, value: 0
 
-        # Force UTF-16 string encoding when anonymous bytes are read in,
-        # then encode for UTF-8 when user requests the string
+        # Force UTF-16 string encoding
+        # when anonymous bytes are naively read in,
+        # then encode for UTF-8, which the user expects
         def get
           self.data.force_encoding(Encoding::UTF_16BE).encode(Encoding::UTF_8)
         end
 
-        # Expect a UTF-8 string when setting
+        # Expect to receive UTF-8 string when setting
         def set(string)
           self.data = string.encode(Encoding::UTF_16BE)
         end
 
         # Calculate size, in bytes, of
-        # UTF-16-encoded string and
-        # null terminator
+        # UTF-16-encoded string +
+        # uint16 length of string (2 bytes) +
+        # null terminator (2 bytes)
         def size
-          self.data.length + 2
+          self.data.length + 4
         end
       end
     
@@ -57,12 +59,14 @@ module ASEPalette
 
         uint32 :block_length, value: -> {
           block_length = 0
-          if block_type == BLOCK_TYPE_COLOR ||
-            block_type == BLOCK_TYPE_GROUP_START
+          if block_type == BLOCK_TYPE_GROUP_START ||
+            block_type == BLOCK_TYPE_COLOR
             block_length += block_data.name.size
           end
           if block_type == BLOCK_TYPE_COLOR
-            block_length += 8
+            # Add length of color_model string (4 bytes) +
+            # color_type uint16 (2 bytes)
+            block_length += 6
             case block_data.color_model
             when COLOR_MODEL_RGB
               block_length += 4 * 3
@@ -71,8 +75,6 @@ module ASEPalette
             when COLOR_MODEL_LAB
               block_length += 4 * 3
             end
-          elsif block_type == BLOCK_TYPE_GROUP_START
-            block_length += 2
           end
           block_length
         }
@@ -86,29 +88,30 @@ module ASEPalette
           end
           class BlockColor < BinData::Record
             endian :big
+
+            class ColorDataRGB < BinData::Record
+              endian :big
+              float :red, initial_value: 0
+              float :green, initial_value: 0
+              float :blue, initial_value: 0
+            end
+            class ColorDataCMYK < BinData::Record
+              endian :big
+              float :cyan, initial_value: 0
+              float :magenta, initial_value: 0
+              float :yellow, initial_value: 0
+              float :black, initial_value: 0
+            end
+            class ColorDataLAB < BinData::Record
+              endian :big
+              float :lightness, initial_value: 0
+              float :a, initial_value: 0
+              float :b, initial_value: 0
+            end
+            
             String16Null :name
             string :color_model, read_length: 4
             choice :color_data, selection: -> { color_model } do
-              class ColorDataRGB < BinData::Record
-                endian :big
-                float :red, initial_value: 0
-                float :green, initial_value: 0
-                float :blue, initial_value: 0
-              end
-              class ColorDataCMYK < BinData::Record
-                endian :big
-                float :cyan, initial_value: 0
-                float :magenta, initial_value: 0
-                float :yellow, initial_value: 0
-                float :black, initial_value: 0
-              end
-              class ColorDataLAB < BinData::Record
-                endian :big
-                float :lightness, initial_value: 0
-                float :a, initial_value: 0
-                float :b, initial_value: 0
-              end
-    
               ColorDataRGB  COLOR_MODEL_RGB
               ColorDataCMYK COLOR_MODEL_CMYK
               ColorDataLAB  COLOR_MODEL_LAB
