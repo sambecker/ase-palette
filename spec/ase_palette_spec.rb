@@ -7,7 +7,7 @@ RSpec.describe ASEPalette do
 
   context "palette opened from file" do
     before do
-      @palette = ASEPalette.open "spec/palette_complex.ase"
+      @palette = ASEPalette.open "spec/palettes/palette_complex.ase"
     end
 
     it "has correct shape" do
