@@ -37,10 +37,10 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.required_ruby_version = ">= 2.5.0"
 
-  spec.add_dependency "bindata", "~>2.4.4"
+  spec.add_dependency "bindata", "~>2.4.10"
   spec.add_dependency "hex_string", "~>1.0.1"
 
   spec.add_development_dependency "bundler", "~> 2.0"
-  spec.add_development_dependency "rake", "~> 11.2"
-  spec.add_development_dependency "rspec", "~> 3.8"
+  spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency "rspec", "~> 3.10"
 end
